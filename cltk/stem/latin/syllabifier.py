@@ -182,7 +182,7 @@ class Syllabifier(object):
                                                                   next_char)  # And the current character isn't preceded by a q, unless followed by a u
                                        and not (
                                                            has_prev_char
-                                                       and prev_char == "q"
+                                                       and prev_char == "q" or prev_char == "g"
                                                    and char == "u"
                                                and next_char != "u"
                                        )
@@ -195,7 +195,7 @@ class Syllabifier(object):
                                                         (
                                                                     (
                                                                                         has_prev_char
-                                                                                    and prev_char != "q"
+                                                                                    and prev_char != "q" or prev_char != "g"
                                                                                 and char == "u"
                                                                             and self._is_vowel(word[i + 2])
                                                                     )
@@ -255,4 +255,10 @@ class Syllabifier(object):
                     syllable = ''
 
         return syllables
+
+if __name__ == "__main__":
+    syll = Syllabifier()
+    test_words = ['lingua', 'tuus', 'inquestor', 'linguo']
+    for word in test_words:
+        print('Word: {0} Syllables: {1}'.format(word, syll.syllabify(word)))
 
